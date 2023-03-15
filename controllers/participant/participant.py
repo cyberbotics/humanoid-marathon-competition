@@ -1,26 +1,20 @@
 """Simple robot controller."""
 
 from controller import Robot
-import sys
 
-# Define the target motor position in radians.
-target = 1
+angle = 0.0
+delta_angle = 0.03
 
-# Get pointer to the robot.
 robot = Robot()
+time_step = int(robot.getBasicTimeStep())
 
-# Print the program output on the console
-print("Move the motors of the Thymio II to position " + str(target) + ".")
+robot.getDevice("ArmLowerL").setPosition(angle)
+robot.getDevice("ArmLowerR").setPosition(angle)
 
-# Set the target position of the left and right wheels motors.
-robot.getDevice("motor.left").setPosition(target)
-robot.getDevice("motor.right").setPosition(target)
+while robot.step(time_step) != -1:
+    if angle >= 1.0 or angle <= -1.0:
+        delta_angle *= -1
+    angle += delta_angle
 
-# Run the simulation for 10 seconds
-robot.step(10000)
-
-# This is the simplest controller that works for this competition
-# If you want to experiment with more complex functions, you can read the programming guide here:
-# https://www.cyberbotics.com/doc/guide/controller-programming?tab-language=python
-# or the Robot() documentation here:
-# https://cyberbotics.com/doc/reference/robot?tab-language=python
+    robot.getDevice("ArmLowerL").setPosition(angle)
+    robot.getDevice("ArmLowerR").setPosition(angle)
