@@ -27,7 +27,7 @@ WorldInfo {
   info [
     "Program a Robotis OP2 humanoid robot to walk as far as possible before its battery runs out of energy."
   ]
-  title "Humanoid Marathon"
+  title "Humanoid Marathon Competition"
   window "humanoid_marathon"
   basicTimeStep 16
 }
